@@ -20,8 +20,8 @@ exports.getUser = (req, res) => {
           error: err,
         });
       }
-      user.password = undefined;
-      return res.status(200).json(user);
+      const { password, createdAt, updatedAt, ...others } = user._doc;
+      return res.status(200).json(others);
     })
     .catch((err) => {
       return res.status(404).json({
@@ -83,6 +83,58 @@ exports.deleteUser = async (req, res) => {
   } else {
     return res.status(400).json({
       error: "you can only delete your account",
+    });
+  }
+};
+
+exports.follow = async (req, res) => {
+  if (req.body.userId !== req.params.id) {
+    try {
+      const user = await User.findById(req.params.id);
+      const currentUser = await User.findById(req.body.userId);
+      if (!user.followers.includes(req.body.userId)) {
+        await user.updateOne({ $push: { followers: req.body.userId } });
+        await currentUser.updateOne({ $push: { following: req.params.id } });
+        return res.status(200).json("user followed");
+      } else {
+        res.status(400).json({
+          error: "you already follow this user",
+        });
+      }
+    } catch (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+  } else {
+    return res.status(400).json({
+      error: "you cannot follow yourself",
+    });
+  }
+};
+
+exports.unfollow = async (req, res) => {
+  if (req.body.userId !== req.params.id) {
+    try {
+      const user = await User.findById(req.params.id);
+      const currentUser = await User.findById(req.body.userId);
+      if (user.followers.includes(req.body.userId)) {
+        await user.updateOne({ $pull: { followers: req.body.userId } });
+        await currentUser.updateOne({ $pull: { following: req.params.id } });
+        return res.status(200).json("user unfollowed");
+      } else {
+        res.status(400).json({
+          error: "you do not follow this user",
+        });
+      }
+    } catch (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+  } else {
+    return res.status(400).json({
+      error: "you cannot unfollow yourself",
     });
   }
 };
