@@ -6,12 +6,14 @@ const morgan = require("morgan");
 require("dotenv").config();
 const userRoute = require("./router/users");
 const authRoute = require("./router/auth");
+const postRoute = require("./router/posts")
 
 App.use(express.json());
 App.use(helmet());
 App.use(morgan("common"));
 App.use("/api/users", userRoute);
 App.use("/api/auth", authRoute);
+App.use("/api/posts",postRoute)
 
 mongoose
   .connect(process.env.MONGO_URL, {
