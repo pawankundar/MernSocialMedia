@@ -1,4 +1,5 @@
 const Post = require("../model/post");
+const User = require("../model/user");
 
 exports.createPost = (req, res) => {
   const post = new Post(req.body);
@@ -50,15 +51,38 @@ exports.updatePost = (req, res) => {
     });
 };
 
-exports.getPost = (req, res) => {
-  Post.find().then((allPost, err) => {
-    if (err) {
-      return res.status(400).json({
-        error: err,
+exports.timeline = async (req, res) => {
+  try {
+    const currentUser = await User.findById(req.body.userId);
+    const userPost = await Post.find({ userId: currentUser._id });
+    const friendsPost = await Promise.all(
+      currentUser.following.map((friendId) => {
+        return Post.find({ userId: friendId });
+      })
+    );
+    return res.status(200).json(userPost.concat(...friendsPost));
+  } catch {
+    return res.status(400).json({
+      error: "error in timeline",
+    });
+  }
+};
+
+exports.getApost = (req, res) => {
+  Post.findById(req.params.id)
+    .then((foundPost, err) => {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      return res.status(200).json(foundPost);
+    })
+    .catch(() => {
+      return res.status(404).json({
+        error: "Post not found",
       });
-    }
-    return res.status(200).json(allPost);
-  });
+    });
 };
 
 exports.deletePost = (req, res) => {
@@ -90,6 +114,33 @@ exports.deletePost = (req, res) => {
       } else {
         return res.status(403).json({
           error: "unauthorized to delete the post",
+        });
+      }
+    })
+    .catch((err) => {
+      return res.status(404).json({
+        error: "Post not found",
+      });
+    });
+};
+
+exports.like = (req, res) => {
+  Post.findById(req.params.id)
+    .then(async (foundPost, err) => {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      if (!foundPost.likes.includes(req.body.userId)) {
+        await foundPost.updateOne({ $push: { likes: req.body.userId } });
+        return res.status(200).json({
+          message: "post liked",
+        });
+      } else {
+        await foundPost.updateOne({ $pull: { likes: req.body.userId } });
+        return res.status(200).json({
+          message: "post disliked",
         });
       }
     })
