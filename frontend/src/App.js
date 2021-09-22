@@ -1,5 +1,9 @@
+import Home from "./pages/home/home";
+
 const App = () => {
-  return <div>Hello this is frontEnd</div>;
+  return (
+  
+  <Home/>  )
 };
 
 export default App;
