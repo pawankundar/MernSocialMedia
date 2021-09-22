@@ -17,39 +17,39 @@ const LeftBar = () => {
       <div className="leftBarWrapper">
         <ul className="leftBarList">
           <li className="leftBarListItem">
-            <RssFeed classname="leftBarIcon" />
+            <RssFeed className="leftBarIcon" />
             <span className="leftBarIconText">Feed</span>
           </li>
           <li className="leftBarListItem">
-            <Chat classname="leftBarIcon" />
+            <Chat className="leftBarIcon" />
             <span className="leftBarIconText">Chat</span>
           </li>
           <li className="leftBarListItem">
-            <PlayCircleFilledOutlined classname="leftBarIcon" />
+            <PlayCircleFilledOutlined className="leftBarIcon" />
             <span className="leftBarIconText">Videos</span>
           </li>
           <li className="leftBarListItem">
-            <Group classname="leftBarIcon" />
+            <Group className="leftBarIcon" />
             <span className="leftBarIconText">Groups</span>
           </li>
           <li className="leftBarListItem">
-            <Bookmark classname="leftBarIcon" />
+            <Bookmark className="leftBarIcon" />
             <span className="leftBarIconText">Bookmark</span>
           </li>
           <li className="leftBarListItem">
-            <HelpOutline classname="leftBarIcon" />
+            <HelpOutline className="leftBarIcon" />
             <span className="leftBarIconText">Questions</span>
           </li>
           <li className="leftBarListItem">
-            <WorkOutline classname="leftBarIcon" />
+            <WorkOutline className="leftBarIcon" />
             <span className="leftBarIconText">Jobs</span>
           </li>
           <li className="leftBarListItem">
-            <Event classname="leftBarIcon" />
+            <Event className="leftBarIcon" />
             <span className="leftBarIconText">Event</span>
           </li>
           <li className="leftBarListItem">
-            <School classname="leftBarIcon" />
+            <School className="leftBarIcon" />
             <span className="leftBarIconText">Courses</span>
           </li>
         </ul>
