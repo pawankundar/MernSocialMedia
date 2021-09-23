@@ -39,6 +39,9 @@
   font-weight: 400;
 }
 
+.postMoreIcon {
+  cursor: pointer;
+}
 .postCenter {
   margin: 20px 0;
 }
