@@ -10,6 +10,8 @@ import {
   School,
 } from "@material-ui/icons";
 import "./LeftBar.css";
+import {Users } from "../../dummyData"
+import CloseFriend from "../closeFriend/CloseFriend";
 
 const LeftBar = () => {
   return (
@@ -56,34 +58,9 @@ const LeftBar = () => {
         <button className="leftBarButton">Show More</button>
         <hr className="leftBarHr" />
         <ul className="leftBarFriendsList">
-          <li className="leftBarFriend">
-            <img className="leftBarFriendPic" src="/assets/person/2.jpeg" alt="profilePic" />
-            <span className="leftBarFriendName">Pawan Kundar</span>
-          </li>
-          <li className="leftBarFriend">
-            <img className="leftBarFriendPic" src="/assets/person/2.jpeg" alt="profilePic" />
-            <span className="leftBarFriendName">Pawan Kundar</span>
-          </li>
-          <li className="leftBarFriend">
-            <img className="leftBarFriendPic" src="/assets/person/2.jpeg" alt="profilePic" />
-            <span className="leftBarFriendName">Pawan Kundar</span>
-          </li>
-          <li className="leftBarFriend">
-            <img className="leftBarFriendPic" src="/assets/person/2.jpeg" alt="profilePic" />
-            <span className="leftBarFriendName">Pawan Kundar</span>
-          </li>
-          <li className="leftBarFriend">
-            <img className="leftBarFriendPic" src="/assets/person/2.jpeg" alt="profilePic" />
-            <span className="leftBarFriendName">Pawan Kundar</span>
-          </li>
-          <li className="leftBarFriend">
-            <img className="leftBarFriendPic" src="/assets/person/2.jpeg" alt="profilePic" />
-            <span className="leftBarFriendName">Pawan Kundar</span>
-          </li>
-          <li className="leftBarFriend">
-            <img className="leftBarFriendPic" src="/assets/person/2.jpeg" alt="profilePic" />
-            <span className="leftBarFriendName">Pawan Kundar</span>
-          </li>
+          {Users.map((data)=>(
+            <CloseFriend data={data} key={data.id}/>
+          ))}
         </ul>
       </div>
     </div>
