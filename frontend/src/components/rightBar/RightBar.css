@@ -1,0 +1,43 @@
+.rightBar {
+  flex: 3;
+}
+
+.rightBarWrapper {
+  padding: 20px 20px 0 0;
+}
+.bdayContainer {
+  display: flex;
+  align-items: center;
+}
+
+.bdayImage {
+  height: 32px;
+  width: 32px;
+  margin-right: 10px;
+}
+
+.bdayText {
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.rightBarHr {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.advertise {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.rightBarTitle {
+  margin-top: 15px;
+}
+
+.friendList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  margin-top: 15px;
+}
