@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <div className="navBarContainer">
       <div className="navBarLeft">
-        <span className="logo">Dont FaceBook</span>
+        <span className="logo">Panchayat 🏡</span>
       </div>
       <div className="navBarCenter">
         <div className="searchBar">
