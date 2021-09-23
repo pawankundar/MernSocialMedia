@@ -1,5 +1,6 @@
 .rightBar {
   flex: 3;
+  margin-top: 28px;
 }
 
 .rightBarWrapper {
@@ -41,3 +42,37 @@
   list-style: none;
   margin-top: 15px;
 }
+
+.userInfoTitle {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.rightBarInfo {
+  margin-bottom: 30px;
+}
+.rightBarInfoItem {
+  margin: 10px;
+}
+.rightBarInfoKey {
+  font-weight: 500;
+  margin-right: 15px;
+  color: #555;
+}
+
+.rightBarInfoValue {
+  font-weight: 400;
+}
+.userFriendsTitle {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.rightBarFollowings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
