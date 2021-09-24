@@ -1,19 +1,30 @@
 const bcrypt = require("bcrypt");
 const User = require("../model/user");
 
-exports.getAllUsers = (req, res) => {
-  User.find((err, allUsers) => {
-    if (err) {
-      return res.status(400).json({
-        error: err,
-      });
-    }
-    return res.status(200).json(allUsers);
-  });
-};
+
 
 exports.getUser = (req, res) => {
-  User.findById(req.params.id)
+  const userId = req.query.userId;
+  const username = req.query.username;
+  if(userId){
+    User.findOne({_id:userId})
+    .then((user, err) => {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      const { password, createdAt, updatedAt, ...others } = user._doc;
+      return res.json(others);
+    })
+    .catch((err) => {
+      return res.status(404).json({
+        error: "user not found",
+      });
+    });
+  }
+  if(username){
+    User.findOne({username : username})
     .then((user, err) => {
       if (err) {
         return res.status(400).json({
@@ -28,6 +39,18 @@ exports.getUser = (req, res) => {
         error: "user not found",
       });
     });
+  }
+  else{
+    User.find((err, allUsers) => {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      return res.status(200).json(allUsers);
+    });
+  }
+
 };
 
 exports.updateUser = async (req, res) => {
