@@ -16,7 +16,7 @@ const Login = ()=>{
                         <input  className="loginInput" placeholder="Password"/>
                         <button className="loginButton">Login</button>
                         <span className="loginForgort">Forgort Password ?</span>
-                        <button className="registerButton">Create a new account</button>
+                        <button className="registerXButton">Create a new account</button>
                     </div>
                 </div>
             </div>
