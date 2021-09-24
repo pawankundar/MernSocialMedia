@@ -1,11 +1,14 @@
 import { Chat, Notifications, Person, Search } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 import "./navBar.css";
 
 const NavBar = () => {
   return (
     <div className="navBarContainer">
       <div className="navBarLeft">
+        <Link to="/" style={{ textDecoration: 'none' }}>
         <span className="logo">Panchayat 🏡</span>
+        </Link>
       </div>
       <div className="navBarCenter">
         <div className="searchBar">
@@ -32,6 +35,7 @@ const NavBar = () => {
             <span className="iconBadge">1</span>
           </div>
         </div>
+  
         <img classname = "profilePic" src="/assets/person/1.jpeg" alt ="profilepicture"  className="profilePic"/>
       </div>
     </div>
