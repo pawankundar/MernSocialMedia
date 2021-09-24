@@ -10,10 +10,22 @@ import {
   School,
 } from "@material-ui/icons";
 import "./LeftBar.css";
-import {Users } from "../../dummyData"
 import CloseFriend from "../closeFriend/CloseFriend";
+import { useEffect, useState } from "react";
+const axios = require("axios");
 
 const LeftBar = () => {
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    const getUser = async () => {
+      await axios
+        .get("users/")
+        .then((resp) => setUser(resp.data))
+        .catch((err) => console.log(err));
+    };
+    getUser()
+  }, []);
   return (
     <div className="leftBar">
       <div className="leftBarWrapper">
@@ -58,8 +70,8 @@ const LeftBar = () => {
         <button className="leftBarButton">Show More</button>
         <hr className="leftBarHr" />
         <ul className="leftBarFriendsList">
-          {Users.map((data)=>(
-            <CloseFriend data={data} key={data.id}/>
+          {user.map((data,key)=>(
+            <CloseFriend data={data} key={key}/>
           ))}
         </ul>
       </div>
