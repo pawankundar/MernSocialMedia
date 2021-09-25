@@ -19,7 +19,7 @@ const Post = ({ data }) => {
   useEffect(() => {
     const getUser = () => {
       axios
-        .get(`users/?userId=${data.userId}`)
+        .get(`/users/?userId=${data.userId}`)
         .then((resp) => SetUser(resp.data))
         .catch((err) => console.log(err));
     };
