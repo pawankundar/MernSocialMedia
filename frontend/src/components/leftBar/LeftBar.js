@@ -16,12 +16,12 @@ const axios = require("axios");
 
 const LeftBar = () => {
   const [user, setUser] = useState([]);
-
+  const userId = "6145862dbd01da67ccfadd3f"
   useEffect(() => {
     const getUser = async () => {
       await axios
-        .get("users/")
-        .then((resp) => setUser(resp.data))
+        .get("/users/?userId="+userId)
+        .then((resp) => setUser(resp.data.following))
         .catch((err) => console.log(err));
     };
     getUser()
@@ -70,8 +70,8 @@ const LeftBar = () => {
         <button className="leftBarButton">Show More</button>
         <hr className="leftBarHr" />
         <ul className="leftBarFriendsList">
-          {user.map((data,key)=>(
-            <CloseFriend data={data} key={key}/>
+          {user?.map((data,key)=>(
+            <CloseFriend userId={data} key={key}/>
           ))}
         </ul>
       </div>
