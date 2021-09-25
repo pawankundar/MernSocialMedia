@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import axios from 'axios'
 
 const ProfilePage = () => {
+
+  const ImageLink = process.env.REACT_APP_PUBLIC_FOLDER;
   const username = useParams().username;
   const [user, setUser] = useState([]);
   useEffect(() => {
@@ -27,12 +29,12 @@ const ProfilePage = () => {
             <div className="profileCover">
               <img
                 className="coverPicture"
-                src="/assets/post/3.jpeg"
+                src={user.coverPicture?ImageLink+user.coverPicture:ImageLink+"/noCover.jpg"}
                 alt="coverImage"
               />
               <img
                 className="profilePicture"
-                src="/assets/person/7.jpeg"
+                src={user.profilePicture?ImageLink+user.profilePicture:ImageLink+"/person/no-avatar.png"}
                 alt="profileImage"
               />
             </div>
@@ -43,7 +45,7 @@ const ProfilePage = () => {
           </div>
           <div className="profileRightBottom">
             <Feed username={username} />
-            <RightBar condition={true} />
+            <RightBar data={user} />
           </div>
         </div>
       </div>
