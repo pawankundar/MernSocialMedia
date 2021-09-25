@@ -1,11 +1,14 @@
 import Post from "../post/Post";
 import Share from "../share/Share";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import "./Feed.css";
+import { Context } from "../../context/context";
 
 const Feed = ({ username }) => {
   const [post, setPost] = useState([]);
+
+  const{user} = useContext(Context)
 
   useEffect(() => {
     const getPost = async () => {
@@ -14,13 +17,13 @@ const Feed = ({ username }) => {
           setPost(resp.data);
         })
         : await axios
-            .get("posts/timeline/" + "6145862dbd01da67ccfadd3f")
+            .get("posts/timeline/"+user._id)
             .then((resp) => {
               setPost(resp.data);
             });
     };
     getPost();
-  }, []);
+  }, [username]);
 
   return (
     <div className="feed">
