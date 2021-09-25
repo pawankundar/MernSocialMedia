@@ -2,7 +2,12 @@ import "./RightBar.css";
 import { Users } from "../../dummyData";
 import OnlineUser from "../onlineUser/OnlineUser";
 import SideInfoFriends from "../sideInfoFriends/SideInfoFriends";
-const RightBar = ({ condition }) => {
+
+const RightBar = ({ data }) => {
+
+  const followers = data?.followers
+  const relationshipStatus = ['Single','Married','Not intrested']
+
   const HomeRightBar = () => {
     return (
       <>
@@ -30,31 +35,31 @@ const RightBar = ({ condition }) => {
   };
 
   const ProfileRightBar = () => {
+
     return (
       <>
         <h4 className="userInfoTitle">User information</h4>
         <div className="rightBarInfo">
           <div className="rightBarInfoItem">
             <span className="rightBarInfoKey">City:</span>
-            <span className="rightBarInfoValue">Mumbai</span>
+            <span className="rightBarInfoValue">{data.city}</span>
           </div>
           <div className="rightBarInfoItem">
             <span className="rightBarInfoKey">From:</span>
-            <span className="rightBarInfoValue">India</span>
+            <span className="rightBarInfoValue">{data.from}</span>
           </div>
           <div className="rightBarInfoItem">
             <span className="rightBarInfoKey">Relationship:</span>
-            <span className="rightBarInfoValue">Single</span>
+            <span className="rightBarInfoValue">{relationshipStatus[data.relationship-1]}</span>
           </div>
         </div>
-        <h4 className="userFriendsTitle">User friends</h4>
+        <h4 className="userFriendsTitle">User followers</h4>
         <div className="rightBarFollowings">
-          <SideInfoFriends name="Pawan Kundar" profilePic="1" />
-          <SideInfoFriends name="Dave Lee" profilePic="2" />
-          <SideInfoFriends name="Canoopsy" profilePic="3" />
-          <SideInfoFriends name="Felix Kjelberg" profilePic="4" />
-          <SideInfoFriends name="Jhon Wick" profilePic="5" />
-          <SideInfoFriends name="Jane Doe" profilePic="6" />
+          {followers?.map((userId)=>(
+            <SideInfoFriends name={userId} profilePic="1" />
+          ))}
+          
+
         </div>
       </>
     );
@@ -62,7 +67,7 @@ const RightBar = ({ condition }) => {
   return (
     <div className="rightBar">
       <div className="rightBarWrapper">
-        {condition ? <ProfileRightBar /> : <HomeRightBar />}
+        {data ? <ProfileRightBar /> : <HomeRightBar />}
       </div>
     </div>
   );
