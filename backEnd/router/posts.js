@@ -1,9 +1,10 @@
 const express = require("express");
-const { createPost, updatePost, timeline, deletePost, like, getApost } = require("../controller/posts");
+const { createPost, updatePost, timeline, deletePost, like, getApost, getUserPosts } = require("../controller/posts");
 const router = express.Router();
 
-router.get("/timeline/all", timeline); 
+router.get("/timeline/:id", timeline); 
 router.get("/:id",getApost)
+router.get("/profile/:username",getUserPosts)
 router.post("/create", createPost);
 router.put("/:id", updatePost);
 router.delete("/:id",deletePost)

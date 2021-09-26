@@ -53,7 +53,7 @@ exports.updatePost = (req, res) => {
 
 exports.timeline = async (req, res) => {
   try {
-    const currentUser = await User.findById(req.body.userId);
+    const currentUser = await User.findById(req.params.id);
     const userPost = await Post.find({ userId: currentUser._id });
     const friendsPost = await Promise.all(
       currentUser.following.map((friendId) => {
@@ -81,6 +81,36 @@ exports.getApost = (req, res) => {
     .catch(() => {
       return res.status(404).json({
         error: "Post not found",
+      });
+    });
+};
+
+exports.getUserPosts = (req, res) => {
+  User.findOne({ username: req.params.username })
+    .then((foundUser, err) => {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      Post.find({ userId: foundUser._id })
+        .then((Posts, err) => {
+          if (err) {
+            return res.status(400).json({
+              error: err,
+            });
+          }
+          return res.status(200).json(Posts);
+        })
+        .catch(() => {
+          return res.status(404).json({
+            error: "Post of this user not found",
+          });
+        });
+    })
+    .catch(() => {
+      return res.status(400).json({
+        error: "user not found",
       });
     });
 };
