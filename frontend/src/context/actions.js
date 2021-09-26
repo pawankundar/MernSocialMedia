@@ -18,3 +18,9 @@ export const LoginFailure = (error)=>(
         payload : error
     }
 )
+
+export const Logout = ()=>{
+    {
+        type : "LOGOUT"
+    }
+}
