@@ -40,16 +40,7 @@ exports.getUser = (req, res) => {
       });
     });
   }
-  else{
-    User.find((err, allUsers) => {
-      if (err) {
-        return res.status(400).json({
-          error: err,
-        });
-      }
-      return res.status(200).json(allUsers);
-    });
-  }
+
 
 };
 
