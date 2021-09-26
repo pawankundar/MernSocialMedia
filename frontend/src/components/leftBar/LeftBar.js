@@ -11,21 +11,11 @@ import {
 } from "@material-ui/icons";
 import "./LeftBar.css";
 import CloseFriend from "../closeFriend/CloseFriend";
-import { useEffect, useState } from "react";
-const axios = require("axios");
+import { useContext } from "react";
+import { Context } from "../../context/context";
 
 const LeftBar = () => {
-  const [user, setUser] = useState([]);
-  const userId = "6145862dbd01da67ccfadd3f"
-  useEffect(() => {
-    const getUser = async () => {
-      await axios
-        .get("/users/?userId="+userId)
-        .then((resp) => setUser(resp.data.following))
-        .catch((err) => console.log(err));
-    };
-    getUser()
-  }, []);
+  const {user} = useContext(Context)
   return (
     <div className="leftBar">
       <div className="leftBarWrapper">
@@ -70,7 +60,7 @@ const LeftBar = () => {
         <button className="leftBarButton">Show More</button>
         <hr className="leftBarHr" />
         <ul className="leftBarFriendsList">
-          {user?.map((data,key)=>(
+          {user.following?.map((data,key)=>(
             <CloseFriend userId={data} key={key}/>
           ))}
         </ul>
