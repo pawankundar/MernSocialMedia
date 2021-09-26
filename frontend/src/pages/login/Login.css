@@ -62,21 +62,22 @@
   cursor: pointer;
 }
 
-.loginForgort{
-    text-align: center;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
+.loginForgort {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
 }
-.registerXButton{
-    width: 60%;
-    height: 50px;
-    border-radius: 10px;
-    border: none;
-    background-color: #ff2e85;
-    color: white;
-    font-size: 20px;
-    font-weight: 500;
-    cursor: pointer;
-    align-self: center;
+.registerXButton {
+  margin-left: 80px;
+  width: 60%;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: #ff2e85;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  align-self: center;
 }
