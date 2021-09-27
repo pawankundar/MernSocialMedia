@@ -14,12 +14,16 @@ const Feed = ({ username }) => {
     const getPost = async () => {
       username
         ? await axios.get("/posts/profile/"+username).then((resp) => {
-          setPost(resp.data);
+          setPost(resp.data.sort((p1,p2)=>{
+            return new Date (p2.createdAt) - new Date (p1.createdAt)
+          }));
         })
         : await axios
             .get("posts/timeline/"+user._id)
             .then((resp) => {
-              setPost(resp.data);
+              setPost(resp.data.sort((p1,p2)=>{
+                return new Date (p2.createdAt) - new Date (p1.createdAt)
+              }));
             });
     };
     getPost();
