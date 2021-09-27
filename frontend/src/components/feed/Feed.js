@@ -23,14 +23,14 @@ const Feed = ({ username }) => {
             });
     };
     getPost();
-  }, [username]);
+  }, [username,user._id]);
 
   return (
     <div className="feed">
       <div className="feedWrapper">
         <Share />
         {post?.map((data, key) => (
-          <Post data={data} key={key} />
+          <Post post={data} key={key} />
         ))}
       </div>
     </div>
