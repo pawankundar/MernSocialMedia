@@ -1,32 +1,46 @@
 import { MoreVert } from "@material-ui/icons";
 import "./Post.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
-const Post = ({ data }) => {
+import { Context } from "../../context/context";
+const Post = ({ post }) => {
 
-  const[like,setLike] = useState([])
-
-  const LikeUpdater = async(postId) => {
-    await axios.put(`posts/${postId}/like`,{
-      "userId" : data.userId
-    }).then(()=>{
-      window.location.reload()
-    })
-  };
+  const photoUrl = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [like, setLike] = useState(post.likes.length);
+  const [isLiked, setIsLiked] = useState(false);
   const [user, SetUser] = useState([]);
+  const {user : currentUser} = useContext(Context)
+
+  useEffect(() => {
+    setIsLiked(post.likes.includes(currentUser._id));
+  }, [currentUser._id, post.likes]);
+
+
+  const LikeUpdater = async() => {
+    await axios.put(`posts/${post._id}/like`,{
+      "userId" : currentUser._id
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+    setLike(isLiked ? like - 1 : like + 1);
+    setIsLiked(!isLiked);
+  };
+
+  
+
   useEffect(() => {
     const getUser = () => {
       axios
-        .get(`/users/?userId=${data.userId}`)
+        .get(`/users/?userId=${post.userId}`)
         .then((resp) => SetUser(resp.data))
         .catch((err) => console.log(err));
     };
     getUser();
-    setLike(data.likes.length)
-  }, [data.userId]);
-  const photoUrl = process.env.REACT_APP_PUBLIC_FOLDER;
+  }, [post.userId]);
+  
   return (
     <div className="post">
       <div className="postWrapper">
@@ -44,17 +58,17 @@ const Post = ({ data }) => {
               <Link to={`profile/${user.username}`}  style={{ textDecoration: 'none' , color: 'black' }}>
               <span className="postUsername">{user.username}</span>
             </Link>
-            <span className="postTime">{format(data.createdAt)}</span>
+            <span className="postTime">{format(post.createdAt)}</span>
           </div>
           <div className="postRight">
             <MoreVert className="postMoreIcon" />
           </div>
         </div>
         <div className="postCenter">
-          <span className="postCaption">{data.desc}</span>
+          <span className="postCaption">{post.desc}</span>
           <img
             className="postImage"
-            src={photoUrl + data.img}
+            src={photoUrl + post.img}
             alt="PostedImage"
           />
         </div>
@@ -62,7 +76,7 @@ const Post = ({ data }) => {
           <div className="postBottomLeft">
             <img
               className="likeIcon"
-              onClick={()=>LikeUpdater(data._id)}
+              onClick={LikeUpdater}
               alt=""
               src="/assets/like.png"
             />
@@ -72,7 +86,7 @@ const Post = ({ data }) => {
             </span>
           </div>
           <div className="postBottomRight">
-            <span className="postComment">{data.comment} comments.</span>
+            <span className="postComment">{post.comment} comments.</span>
           </div>
         </div>
       </div>
