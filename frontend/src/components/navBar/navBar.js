@@ -46,13 +46,14 @@ const NavBar = () => {
             <span className="iconBadge">1</span>
           </div>
         </div>
-
+      <Link to={"/profile/"+user.username}>
         <img
           classname="profilePic"
           src={user.profilePicture?ImageLink+user.profilePicture:ImageLink+"/person/no-avatar.png"}
           alt="profilepicture"
           className="profilePic"
         />
+      </Link>
       </div>
     </div>
   );
