@@ -40,10 +40,41 @@ exports.getUser = (req, res) => {
       });
     });
   }
-
-
 };
+exports.getAllUsers = (req,res)=>{
+  User.find().then((allUsers,err)=>{
+    if(err){
+      return res.status(400).json({
+        error : "error in getting all users"
+      })
+    }
+    return res.status(200).json(allUsers)
+  })
+}
 
+exports.getFollowers =async (req,res)=>{
+  try{
+    const user = await User.findById(req.params.userId)
+    const followers = await Promise.all(
+      user.followers.map(followerID=>{
+        return User.findById(followerID)
+      })
+    )
+    let followersList = []
+    followers.map(follower=>{
+      const {_id,username,profilePicture} = follower
+      followersList.push({_id,username,profilePicture})
+    })
+    return res.status(200).json(followersList)
+  }
+  catch{
+    return res.status(400).json({
+      error : "error in getting user's followers"
+    })
+  }
+
+
+}
 exports.updateUser = async (req, res) => {
   if (req.body.userId === req.params.id) {
     if (req.body.password) {
