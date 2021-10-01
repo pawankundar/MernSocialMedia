@@ -5,6 +5,9 @@ const SideInfoFollowers = ({ follower }) => {
 
   return (
     <div className="rightBarFollowing">
+      <Link to={`/profile/${follower.username}`}  
+      style={{ textDecoration: 'none' , color: 'black' ,display:"flex",flexDirection:"column" ,flex : "wrap",justifyContent:"space-between"}}
+      >
       <img
         className="rightBarFollowingImage"
         src={
@@ -14,7 +17,6 @@ const SideInfoFollowers = ({ follower }) => {
         }
         alt="followingPic"
       />
-      <Link to={`/profile/${follower.username}`}  style={{ textDecoration: 'none' , color: 'black' }}>
       <span className="rightBarFollowingName">{follower.username}</span>
       </Link>
     </div>
