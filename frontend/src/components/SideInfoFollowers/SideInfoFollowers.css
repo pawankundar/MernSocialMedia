@@ -1,0 +1,17 @@
+.rightBarFollowing {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    cursor: pointer;
+  }
+  .rightBarFollowingName{
+    align-self:center;
+    margin-top: 7px;
+  }
+  
+  .rightBarFollowingImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
