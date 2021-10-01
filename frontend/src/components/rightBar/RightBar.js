@@ -1,12 +1,24 @@
 import "./RightBar.css";
 import { Users } from "../../dummyData";
 import OnlineUser from "../onlineUser/OnlineUser";
-import SideInfoFriends from "../sideInfoFriends/SideInfoFriends";
+import SideInfoFollowers from "../SideInfoFollowers/SideInfoFollowers";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 
 const RightBar = ({ data }) => {
+  const relationshipStatus = ["Single", "Married", "Not intrested"];
+  const [followers, setFollowers] = useState([]);
+  useEffect(() => {
+    const getFollowers = async () => {
+      axios
+        .get("/users/followers/" + data?._id)
+        .then((resp) => setFollowers(resp.data))
+        .then(() => console.log("error in getFollowers RightBar"))
+    };
+    getFollowers()
 
-  const followers = data?.followers
-  const relationshipStatus = ['Single','Married','Not intrested']
+  }, [data?._id]);
 
   const HomeRightBar = () => {
     return (
@@ -26,8 +38,8 @@ const RightBar = ({ data }) => {
         ></img>
         <h4 className="rightBarTitle">Online Friends</h4>
         <ul className="friendList">
-          {Users.map((data) => (
-            <OnlineUser data={data} key={data.id} />
+          {Users.map((onlineUser) => (
+            <OnlineUser data={onlineUser} key={onlineUser.id} />
           ))}
         </ul>
       </>
@@ -35,7 +47,6 @@ const RightBar = ({ data }) => {
   };
 
   const ProfileRightBar = () => {
-
     return (
       <>
         <h4 className="userInfoTitle">User information</h4>
@@ -50,16 +61,16 @@ const RightBar = ({ data }) => {
           </div>
           <div className="rightBarInfoItem">
             <span className="rightBarInfoKey">Relationship:</span>
-            <span className="rightBarInfoValue">{relationshipStatus[data.relationship-1]}</span>
+            <span className="rightBarInfoValue">
+              {relationshipStatus[data.relationship - 1]}
+            </span>
           </div>
         </div>
         <h4 className="userFriendsTitle">User followers</h4>
         <div className="rightBarFollowings">
-          {followers?.map((userId)=>(
-            <SideInfoFriends name={userId} profilePic="1" />
+          {followers?.map((follower) => (
+            <SideInfoFollowers follower = {follower} />
           ))}
-          
-
         </div>
       </>
     );
