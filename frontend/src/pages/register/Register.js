@@ -12,18 +12,26 @@ const Register = () => {
 
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+
   const handleClose = () => setError(false);
+
   const handleSignUp = async (e) => {
     e.preventDefault();
-    await axios
-      .post("auth/register", {
-        username: usernameRef.current.value,
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-      })
-      .then(() => setSuccess(true))
-      .catch(() => setError(true));
+    if (passwordRef.current.value !== confirmPassword.current.value){
+      confirmPassword.current.setCustomValidity("Passwords do not match")
+    }
+    else{
+      await axios
+        .post("auth/register", {
+          username: usernameRef.current.value,
+          email: emailRef.current.value,
+          password: confirmPassword.current.value,
+        })
+        .then(() => setSuccess(true))
+        .catch(() => setError(true));
+    }
   };
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -40,7 +48,9 @@ const Register = () => {
     justifyContent: "center",
     p: 4,
   };
+
   setTimeout(() => success && window.location.replace("/login"), 3000);
+
   return (
     <div className="register">
       <div className="registerWrapper">
