@@ -32,7 +32,7 @@ const Feed = ({ username }) => {
   return (
     <div className="feed">
       <div className="feedWrapper">
-        <Share />
+        {(!username || user.username === username) && <Share />}
         {post?.map((data, key) => (
           <Post post={data} key={key} />
         ))}
