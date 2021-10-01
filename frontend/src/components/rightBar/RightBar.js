@@ -8,6 +8,8 @@ import { Context } from "../../context/context";
 import { Add } from "@material-ui/icons";
 
 const RightBar = ({ data }) => {
+
+  const photoUrl = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user: currentUser ,dispatch} = useContext(Context);
   const relationshipStatus = ["Single", "Married", "Not intrested"];
   const [followers, setFollowers] = useState([]);
@@ -58,7 +60,7 @@ const RightBar = ({ data }) => {
         <div className="bdayContainer">
           <img className="bdayImage" src="/assets/gift.png" alt="bdayPic" />
           <span className="bdayText">
-            <b>Pawan Kundar</b> and <b>3 other friends</b> have a birthday
+            <b>Jhon doe</b> and <b>3 other friends</b> have a birthday
             today.
           </span>
         </div>
@@ -66,7 +68,7 @@ const RightBar = ({ data }) => {
         <img
           className="advertise"
           alt="advertisemet"
-          src="/assets/ad.png"
+          src={photoUrl+"ad.png"}
         ></img>
         <h4 className="rightBarTitle">Online Friends</h4>
         <ul className="friendList">
