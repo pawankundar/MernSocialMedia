@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const Login = () => {
   const username = useRef();
   const password = useRef();
-  const { dispatch, isFetching, user } = useContext(Context);
+  const { dispatch, isFetching,error } = useContext(Context);
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
@@ -20,7 +20,6 @@ const Login = () => {
       .then((resp) => dispatch({ type: "LOGIN_SUCCESS", payload: resp.data }))
       .catch((err) => dispatch({ type: "LOGIN_FAILURE", payload: err }));
   };
-  console.log(user);
 
   return (
     <div className="login">
@@ -59,6 +58,7 @@ const Login = () => {
                 create a new account
               </button>
             </Link>
+          {error && <h1 className="loginErrorMessage">Error while logging in ... ⚠️</h1>}
           </form>
         </div>
       </div>

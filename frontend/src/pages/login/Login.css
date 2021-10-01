@@ -81,3 +81,10 @@
   cursor: pointer;
   align-self: center;
 }
+
+.loginErrorMessage{
+ align-self: center;
+  font-size: 15px;
+  color: rgb(233, 44, 44);
+}
+
