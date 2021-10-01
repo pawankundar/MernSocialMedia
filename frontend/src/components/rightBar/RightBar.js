@@ -2,23 +2,55 @@ import "./RightBar.css";
 import { Users } from "../../dummyData";
 import OnlineUser from "../onlineUser/OnlineUser";
 import SideInfoFollowers from "../SideInfoFollowers/SideInfoFollowers";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-
+import { Context } from "../../context/context";
+import { Add } from "@material-ui/icons";
 
 const RightBar = ({ data }) => {
+  const { user: currentUser ,dispatch} = useContext(Context);
   const relationshipStatus = ["Single", "Married", "Not intrested"];
   const [followers, setFollowers] = useState([]);
+  const [followed,setFollowed] = useState(currentUser.following.includes(data?._id))
+  
+
+
   useEffect(() => {
     const getFollowers = async () => {
       axios
         .get("/users/followers/" + data?._id)
         .then((resp) => setFollowers(resp.data))
-        .catch(() => console.log("error in getFollowers RightBar"))
+        .catch(() => console.log("error in getFollowers RightBar"));
     };
-    getFollowers()
-
+    getFollowers();
   }, [data?._id]);
+
+  useEffect(()=>{
+    setFollowed(currentUser.following.includes(data?._id))
+  },
+  [data?._id,currentUser])
+
+  const handleFollow =async(e)=>{
+    e.preventDefault()
+    await axios.put(`/users/${data._id}/follow`,{
+      userId : currentUser._id
+    })
+    dispatch({type : "FOLLOW",payload : data._id})
+    setFollowed(!followed)
+    window.location.reload();
+
+  }
+
+  const handleUnfollow =  async(e)=>{
+    e.preventDefault()
+    await axios.put(`/users/${data._id}/unfollow`,{
+      userId : currentUser._id
+    })
+    dispatch({type : "UNFOLLOW",payload :data._id})
+    setFollowed(!followed)
+    window.location.reload();
+  }
+
 
   const HomeRightBar = () => {
     return (
@@ -49,6 +81,8 @@ const RightBar = ({ data }) => {
   const ProfileRightBar = () => {
     return (
       <>
+        {currentUser.username !== data.username &&
+         (<button  onClick={followed?handleUnfollow:handleFollow} className="followButton">{ followed?"Unfollow" :"Follow"} <Add/></button>)}
         <h4 className="userInfoTitle">User information</h4>
         <div className="rightBarInfo">
           <div className="rightBarInfoItem">
@@ -66,10 +100,11 @@ const RightBar = ({ data }) => {
             </span>
           </div>
         </div>
+
         <h4 className="userFriendsTitle">User followers</h4>
         <div className="rightBarFollowings">
           {followers?.map((follower) => (
-            <SideInfoFollowers follower = {follower} />
+            <SideInfoFollowers follower={follower} />
           ))}
         </div>
       </>
