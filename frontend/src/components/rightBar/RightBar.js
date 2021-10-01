@@ -14,7 +14,7 @@ const RightBar = ({ data }) => {
       axios
         .get("/users/followers/" + data?._id)
         .then((resp) => setFollowers(resp.data))
-        .then(() => console.log("error in getFollowers RightBar"))
+        .catch(() => console.log("error in getFollowers RightBar"))
     };
     getFollowers()
 
