@@ -80,9 +80,8 @@ const Post = ({ post }) => {
               alt=""
               src="/assets/like.png"
             />
-            <img className="likeIcon" alt="" src="/assets/heart.png" />
             <span className="likeCount">
-              {like} People liked this.
+              {like} Likes.
             </span>
           </div>
           <div className="postBottomRight">
