@@ -10,12 +10,34 @@ import {
   School,
 } from "@material-ui/icons";
 import "./LeftBar.css";
-import CloseFriend from "../closeFriend/CloseFriend";
-import { useContext } from "react";
+import SuggestedUser from "../SuggestedUser/SuggestedUser";
+import {useEffect, useState ,useContext} from "react";
 import { Context } from "../../context/context";
+import axios from "axios";
 
 const LeftBar = () => {
-  const {user} = useContext(Context)
+  const{user:loggedInUser} = useContext(Context)
+  
+  const [suggestedUsers, setSuggestedUsers] = useState([]);
+  useEffect(() => {
+    const getUsers = async () => {
+      await axios
+        .get("/users/all")
+        .then((resp) => setSuggestedUsers(resp.data))
+        .catch((err) => console.log(err));
+    };
+    getUsers()
+
+  },[]);
+
+  const removeLoggedInUser = (user)=>{
+    if (loggedInUser.following.includes(user._id)|| user.username===loggedInUser.username){
+      return false
+    }
+    return true
+
+  }
+  const newArray = suggestedUsers.filter(removeLoggedInUser)
   return (
     <div className="leftBar">
       <div className="leftBarWrapper">
@@ -59,9 +81,10 @@ const LeftBar = () => {
         </ul>
         <button className="leftBarButton">Show More</button>
         <hr className="leftBarHr" />
+        <h4 className="suggetedUserText">Suggested users to follow..</h4>
         <ul className="leftBarFriendsList">
-          {user.following?.map((data,key)=>(
-            <CloseFriend userId={data} key={key}/>
+          {newArray.map((data, key) => (
+            <SuggestedUser users={data} key={key} />
           ))}
         </ul>
       </div>

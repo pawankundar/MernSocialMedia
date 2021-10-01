@@ -46,6 +46,10 @@
 .leftBarHr {
   margin: 20px 0;
 }
+.suggetedUserText{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 
 .leftBarFriendsList {
   padding: 0;
