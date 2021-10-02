@@ -78,7 +78,7 @@ const Post = ({ post }) => {
               className="likeIcon"
               onClick={LikeUpdater}
               alt=""
-              src="/assets/like.png"
+              src={photoUrl+"like.png"}
             />
             <span className="likeCount">
               {like} Likes.
