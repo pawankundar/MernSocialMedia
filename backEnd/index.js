@@ -11,7 +11,7 @@ const authRoute = require("./router/auth");
 const postRoute = require("./router/posts")
 
 App.use(express.json());
-App.use(helmet());
+App.use(helmet({contentSecurityPolicy: false,}));
 App.use(morgan("common"));
 App.use("/api/users", userRoute);
 App.use("/api/auth", authRoute);
