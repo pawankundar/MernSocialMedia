@@ -25,7 +25,7 @@ const RightBar = ({ data }) => {
         .catch(() => console.log("error in getFollowers RightBar"));
     };
     getFollowers();
-  }, [data?._id]);
+  }, [data?._id,followed]);
 
   useEffect(()=>{
     setFollowed(currentUser.following.includes(data?._id))
@@ -39,8 +39,6 @@ const RightBar = ({ data }) => {
     })
     dispatch({type : "FOLLOW",payload : data._id})
     setFollowed(!followed)
-    window.location.reload();
-
   }
 
   const handleUnfollow =  async(e)=>{
@@ -50,7 +48,6 @@ const RightBar = ({ data }) => {
     })
     dispatch({type : "UNFOLLOW",payload :data._id})
     setFollowed(!followed)
-    window.location.reload();
   }
 
 
@@ -58,7 +55,7 @@ const RightBar = ({ data }) => {
     return (
       <>
         <div className="bdayContainer">
-          <img className="bdayImage" src="/assets/gift.png" alt="bdayPic" />
+          <img className="bdayImage" src={photoUrl+"gift.png"} alt="bdayPic" />
           <span className="bdayText">
             <b>Jhon doe</b> and <b>3 other friends</b> have a birthday
             today.
