@@ -12,13 +12,16 @@ const Register = () => {
 
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [wrongPassword,setWrongPassword] =useState(false)
 
   const handleClose = () => setError(false);
+  
 
   const handleSignUp = async (e) => {
     e.preventDefault();
     if (passwordRef.current.value !== confirmPassword.current.value){
-      confirmPassword.current.setCustomValidity("Passwords do not match")
+      setWrongPassword(true)
+      setTimeout(() => {setWrongPassword(false)}, 2000);
     }
     else{
       await axios
@@ -89,6 +92,7 @@ const Register = () => {
               ref={confirmPassword}
               required
             />
+            {wrongPassword && <p className ="wrongPasswordWarning"> Password do not match 🙅🚫</p>}
             <button className="registerButton">Register</button>
             <Link to="/login">
             <button className="newLoginButton">Login</button>

@@ -62,11 +62,12 @@
   cursor: pointer;
 }
 
-.registerForgort {
+.wrongPasswordWarning {
   text-align: center;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 500;
   cursor: pointer;
+  color: orangered;
 }
 .newLoginButton {
   margin-left: 130px;
