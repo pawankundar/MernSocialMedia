@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route,Redirect} from "react-router-dom";
 import { Context } from "./context/context";
 import Home from "./pages/home/home";
 import Login from "./pages/login/Login";
+import Message from "./pages/message/Message";
 import ProfilePage from "./pages/profilePage/ProfilePage";
 import Register from "./pages/register/Register";
 
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/Register">
         {user?<Redirect to="/"/>:<Register/>}
         </Route>
+        <Route  path="/message" component={Message}/>
       </Switch>
     </BrowserRouter>
   );
