@@ -9,6 +9,8 @@ require("dotenv").config();
 const userRoute = require("./router/users");
 const authRoute = require("./router/auth");
 const postRoute = require("./router/posts")
+const conversationRoute = require('./router/conversation')
+const messageRoute = require('./router/messages')
 
 App.use(express.json());
 App.use(helmet({contentSecurityPolicy: false,}));
@@ -16,6 +18,8 @@ App.use(morgan("common"));
 App.use("/api/users", userRoute);
 App.use("/api/auth", authRoute);
 App.use("/api/posts",postRoute)
+App.use('/api/conversation/',conversationRoute)
+App.use('/api/message',messageRoute)
 
 mongoose
   .connect(process.env.MONGO_URL, {
