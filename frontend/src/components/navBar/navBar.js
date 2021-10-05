@@ -37,10 +37,12 @@ const NavBar = () => {
             <Person />
             <span className="iconBadge">1</span>
           </div>
+            <Link to ="/message" style={{ color: "inherit"}}>
           <div className="navBarIconItem">
             <Chat />
             <span className="iconBadge">1</span>
           </div>
+            </Link>
           <div className="navBarIconItem">
             <Notifications />
             <span className="iconBadge">1</span>
