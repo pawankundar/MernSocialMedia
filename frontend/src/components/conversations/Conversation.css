@@ -1,0 +1,22 @@
+.messageChats{
+    display:  flex;
+    align-items: center;
+    margin-top: 15px;
+    padding: 10px;
+    cursor: pointer; 
+}
+
+.messageChats:hover{
+    background-color: rgb(194, 192, 192);
+}
+.messageImage{
+    margin-right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.messageUsername{
+    font-weight: 500;
+}
