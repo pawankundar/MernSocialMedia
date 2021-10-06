@@ -1,27 +1,38 @@
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { Context } from "../../context/context";
+import { format } from "timeago.js";
+
 require("./MessageBubble.css");
 
-const MessageBubble = ({own}) => {
+const MessageBubble = ({ data}) => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const{user:currentUser}=useContext(Context)
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    const getUser = async () => {
+      await axios
+        .get("/users/?userId=" + data.sender)
+        .then((resp) => setUser(resp.data))
+        .catch((err) => console.log(err));
+    };
+    getUser();
+  }, [data]);
   return (
-    <div className={own ? "messageBubble own" : "messageBubble"}>
+    <div className={data.sender===currentUser._id ? "messageBubble own" : "messageBubble"}>
       <div className="bubbleTop">
         <img
           className="chatImage"
           alt="chatImage"
-          src="http://localhost:8000/images/person/1.jpg"
+          src={
+            user?.profilePicture
+              ? PF + user.profilePicture
+              : PF + "person/no-avatar.png"
+          }
         />
-        <p className="messageText">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </p>
+        <p className="messageText">{data.text}</p>
       </div>
-      <div className="bubbleBottom">11:11 am</div>
+      <div className="bubbleBottom">{format(data.createdAt)}</div>
     </div>
   );
 };
