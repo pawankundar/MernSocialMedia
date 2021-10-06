@@ -33,6 +33,15 @@
   position: relative;
 }
 
+.noConversation {
+  position: absolute;
+  top: 40%;
+  align-self: center;
+  font-size: 40px;
+  color: gray;
+  cursor: default;
+}
+
 .chatWindowUser {
   margin-left: 10px;
   margin-bottom: 15px;
