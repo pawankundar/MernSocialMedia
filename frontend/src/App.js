@@ -22,7 +22,7 @@ const App = () => {
         <Route path="/Register">
         {user?<Redirect to="/"/>:<Register/>}
         </Route>
-        <Route  path="/message" component={Message}/>
+        <Route  path="/message" component={user ? Message : Login}/>
       </Switch>
     </BrowserRouter>
   );
