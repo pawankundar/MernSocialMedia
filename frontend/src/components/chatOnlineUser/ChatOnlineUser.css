@@ -1,9 +1,4 @@
-.chatOnlineLabel{
-    font-weight: 500;
-}
-.chatOnlineHr{
-    margin-top:15px ;
-}
+
 .chatOnlineFriend {
     display: flex;
     align-items: center;
@@ -16,7 +11,7 @@
     position: relative;
     margin-right: 10px;
   }
-  
+ 
   .chatOnlineImg {
     width: 40px;
     height: 40px;
