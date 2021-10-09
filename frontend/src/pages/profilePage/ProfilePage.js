@@ -1,11 +1,11 @@
 import Feed from "../../components/feed/Feed";
 import LeftBar from "../../components/leftBar/LeftBar";
 import NavBar from "../../components/navBar/navBar";
-import RightBar from "../../components/rightBar/RightBar";
 import "./ProfilePage.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from 'axios'
+import ProfileRightBar from "../../components/profileRightBar/ProfileRightBar";
 
 const ProfilePage = () => {
 
@@ -13,6 +13,7 @@ const ProfilePage = () => {
   const username = useParams().username;
   const [user, setUser] = useState([]);
   useEffect(() => {
+    window.scrollTo(0,0)
     const getUser = async ()=>{
       await axios.get('/users/?username='+username).then(resp=>setUser(resp.data))
     }
@@ -45,7 +46,7 @@ const ProfilePage = () => {
           </div>
           <div className="profileRightBottom">
             <Feed username={username} />
-            <RightBar data={user} />
+            <ProfileRightBar data={user}/>
           </div>
         </div>
       </div>
